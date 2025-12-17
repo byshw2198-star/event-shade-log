@@ -4,12 +4,15 @@ import { TaskColorPalette } from "@/components/TaskColorPalette";
 import { YearGrid } from "@/components/YearGrid";
 import { TaskStats } from "@/components/TaskStats";
 import { useTaskStorage } from "@/hooks/useTaskStorage";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Loader2 } from "lucide-react";
 import { DEFAULT_COLORS } from "@/types/task";
 
 export default function TaskPage() {
   const { taskId } = useParams<{ taskId: string }>();
   const { getTask, updateTask, addColorToTask, removeColorFromTask, isLoaded } = useTaskStorage();
+  const { t } = useLanguage();
   const [selectedColor, setSelectedColor] = useState<string | null>("complete");
 
   const task = getTask(taskId || "");
@@ -59,14 +62,17 @@ export default function TaskPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">{task.name}</h1>
-          <p className="text-muted-foreground">
-            تتبع تقدمك اليومي على مدار السنة
-          </p>
+        <div className="flex justify-between items-start mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground mb-2">{task.name}</h1>
+            <p className="text-muted-foreground">
+              {t.trackYourProgress}
+            </p>
+          </div>
+          <LanguageSwitcher />
         </div>
 
-        <TaskStats data={task.data} />
+        <TaskStats data={task.data} colors={colors} />
 
         <div className="flex gap-6">
           <div className="shrink-0">
