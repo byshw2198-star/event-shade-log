@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, X, Eraser, Plus, Trash2 } from "lucide-react";
 import { CustomColor } from "@/types/task";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -20,14 +21,14 @@ interface TaskColorPaletteProps {
 }
 
 const PRESET_HUES = [
-  { name: "أخضر", hue: 142 },
-  { name: "أحمر", hue: 0 },
-  { name: "أزرق", hue: 200 },
-  { name: "أصفر", hue: 45 },
-  { name: "بنفسجي", hue: 270 },
-  { name: "برتقالي", hue: 25 },
-  { name: "وردي", hue: 330 },
-  { name: "فيروزي", hue: 175 },
+  { hue: 142 },
+  { hue: 0 },
+  { hue: 200 },
+  { hue: 45 },
+  { hue: 270 },
+  { hue: 25 },
+  { hue: 330 },
+  { hue: 175 },
 ];
 
 export function TaskColorPalette({ 
@@ -37,6 +38,7 @@ export function TaskColorPalette({
   onAddColor,
   onRemoveColor 
 }: TaskColorPaletteProps) {
+  const { t } = useLanguage();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newColorName, setNewColorName] = useState("");
   const [selectedHue, setSelectedHue] = useState(142);
@@ -56,7 +58,7 @@ export function TaskColorPalette({
 
   return (
     <div className="flex flex-col gap-3 p-4 bg-card rounded-lg border border-border">
-      <h3 className="text-sm font-medium text-muted-foreground mb-2">حالة اليوم</h3>
+      <h3 className="text-sm font-medium text-muted-foreground mb-2">{t.selectColor}</h3>
       
       <div className="flex flex-col gap-2">
         {colors.map((color) => (
@@ -107,7 +109,7 @@ export function TaskColorPalette({
           <div className="w-8 h-8 rounded-md bg-cell-empty flex items-center justify-center">
             <Eraser className="w-5 h-5 text-muted-foreground" />
           </div>
-          <span className="text-sm font-medium">مسح</span>
+          <span className="text-sm font-medium">{t.eraser}</span>
         </button>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -116,26 +118,26 @@ export function TaskColorPalette({
               <div className="w-8 h-8 rounded-md bg-secondary flex items-center justify-center">
                 <Plus className="w-5 h-5 text-muted-foreground" />
               </div>
-              <span className="text-sm font-medium text-muted-foreground">إضافة لون</span>
+              <span className="text-sm font-medium text-muted-foreground">{t.addColor}</span>
             </button>
           </DialogTrigger>
           <DialogContent className="bg-card">
             <DialogHeader>
-              <DialogTitle>إضافة لون جديد</DialogTitle>
+              <DialogTitle>{t.addColor}</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 mt-4">
               <div>
-                <label className="text-sm text-muted-foreground mb-2 block">اسم اللون</label>
+                <label className="text-sm text-muted-foreground mb-2 block">{t.colorName}</label>
                 <Input
                   value={newColorName}
                   onChange={(e) => setNewColorName(e.target.value)}
-                  placeholder="مثال: مراجعة"
+                  placeholder=""
                   className="bg-background"
                 />
               </div>
               
               <div>
-                <label className="text-sm text-muted-foreground mb-2 block">اختر اللون</label>
+                <label className="text-sm text-muted-foreground mb-2 block">{t.selectColor}</label>
                 <div className="grid grid-cols-4 gap-2">
                   {PRESET_HUES.map((preset) => (
                     <button
@@ -149,7 +151,6 @@ export function TaskColorPalette({
                         }
                       `}
                       style={{ backgroundColor: getColorStyle(preset.hue) }}
-                      title={preset.name}
                     />
                   ))}
                 </div>
@@ -160,7 +161,7 @@ export function TaskColorPalette({
                   className="w-8 h-8 rounded-md"
                   style={{ backgroundColor: getColorStyle(selectedHue) }}
                 />
-                <span className="text-sm">{newColorName || "اسم اللون"}</span>
+                <span className="text-sm">{newColorName || t.colorName}</span>
               </div>
 
               <Button 
@@ -168,7 +169,7 @@ export function TaskColorPalette({
                 className="w-full"
                 disabled={!newColorName.trim()}
               >
-                إضافة
+                {t.save}
               </Button>
             </div>
           </DialogContent>
