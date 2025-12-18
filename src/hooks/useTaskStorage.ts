@@ -53,6 +53,17 @@ export function useTaskStorage() {
     return id;
   };
 
+  const updateTaskName = (taskId: string, name: string) => {
+    setTasks((prev) => {
+      return prev.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, name };
+        }
+        return task;
+      });
+    });
+  };
+
   const updateTaskIcon = (taskId: string, icon: string) => {
     setTasks((prev) => {
       return prev.map((task) => {
@@ -125,6 +136,7 @@ export function useTaskStorage() {
     deleteTask,
     addColorToTask,
     removeColorFromTask,
+    updateTaskName,
     updateTaskIcon,
     updateTaskImage,
   };
