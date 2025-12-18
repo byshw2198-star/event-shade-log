@@ -31,6 +31,10 @@ interface Translations {
   eraser: string;
   completed: string;
   notCompleted: string;
+  editTask: string;
+  taskIcon: string;
+  taskImage: string;
+  removeImage: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -63,6 +67,10 @@ const translations: Record<Language, Translations> = {
     eraser: "ممحاة",
     completed: "أنجزت",
     notCompleted: "لم أنجز",
+    editTask: "تعديل المهمة",
+    taskIcon: "أيقونة المهمة",
+    taskImage: "صورة المهمة",
+    removeImage: "إزالة الصورة",
   },
   en: {
     appTitle: "2026",
@@ -93,6 +101,10 @@ const translations: Record<Language, Translations> = {
     eraser: "Eraser",
     completed: "Completed",
     notCompleted: "Not Completed",
+    editTask: "Edit Task",
+    taskIcon: "Task Icon",
+    taskImage: "Task Image",
+    removeImage: "Remove Image",
   },
 };
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTaskStore } from "@/contexts/TaskStorageContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Sparkles, Plus, Trash2, Image as ImageIcon } from "lucide-react";
+import { Sparkles, Plus, Trash2, Pencil, X } from "lucide-react";
 import { DAYS_IN_MONTH } from "@/types/task";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,9 +26,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Task } from "@/types/task";
+
+const EMOJI_OPTIONS = ["📋", "💪", "📚", "🏃", "🎯", "✨", "🎨", "💼", "🎵", "🍎", "💧", "🧘"];
 
 const Index = () => {
-  const { tasks, addTask, deleteTask, updateTaskImage } = useTaskStore();
+  const { tasks, addTask, deleteTask, updateTaskImage, updateTaskName, updateTaskIcon } = useTaskStore();
   const { t, language } = useLanguage();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newTaskName, setNewTaskName] = useState("");
@@ -36,7 +39,11 @@ const Index = () => {
   const navigate = useNavigate();
   const totalDays = DAYS_IN_MONTH.reduce((a, b) => a + b, 0);
 
-  const EMOJI_OPTIONS = ["📋", "💪", "📚", "🏃", "🎯", "✨", "🎨", "💼", "🎵", "🍎", "💧", "🧘"];
+  // Edit task state
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [editName, setEditName] = useState("");
+  const [editIcon, setEditIcon] = useState("");
+  const [editImage, setEditImage] = useState<string | undefined>(undefined);
 
   const handleAddTask = () => {
     if (newTaskName.trim()) {
@@ -46,6 +53,40 @@ const Index = () => {
       setIsDialogOpen(false);
       navigate(`/task/${newTaskId}`);
     }
+  };
+
+  const openEditDialog = (task: Task) => {
+    setEditingTask(task);
+    setEditName(task.name);
+    setEditIcon(task.icon || "📋");
+    setEditImage(task.image);
+  };
+
+  const closeEditDialog = () => {
+    setEditingTask(null);
+    setEditName("");
+    setEditIcon("");
+    setEditImage(undefined);
+  };
+
+  const handleSaveEdit = () => {
+    if (!editingTask || !editName.trim()) return;
+    updateTaskName(editingTask.id, editName.trim());
+    updateTaskIcon(editingTask.id, editIcon);
+    updateTaskImage(editingTask.id, editImage);
+    closeEditDialog();
+  };
+
+  const handleEditImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = typeof reader.result === "string" ? reader.result : undefined;
+      setEditImage(result);
+    };
+    reader.readAsDataURL(file);
+    e.currentTarget.value = "";
   };
 
   return (
@@ -84,29 +125,16 @@ const Index = () => {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className={`absolute top-4 ${language === "ar" ? "left-4" : "right-4"} flex items-center gap-1`}>
-                  <label
-                    className="p-2 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg cell-transition cursor-pointer"
-                    title={language === "ar" ? "إضافة صورة" : "Add image"}
+                  {/* Edit Button */}
+                  <button
+                    onClick={() => openEditDialog(task)}
+                    className="p-2 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg cell-transition"
+                    title={t.editTask}
                   >
-                    <ImageIcon className="w-4 h-4" />
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="sr-only"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (!file) return;
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                          const result = typeof reader.result === "string" ? reader.result : undefined;
-                          updateTaskImage(task.id, result);
-                        };
-                        reader.readAsDataURL(file);
-                        e.currentTarget.value = "";
-                      }}
-                    />
-                  </label>
+                    <Pencil className="w-4 h-4" />
+                  </button>
 
+                  {/* Delete Button */}
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <button className="p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg cell-transition">
@@ -202,9 +230,7 @@ const Index = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">
-                    {language === "ar" ? "أيقونة المهمة" : "Task Icon"}
-                  </label>
+                  <label className="text-sm text-muted-foreground mb-2 block">{t.taskIcon}</label>
                   <div className="grid grid-cols-6 gap-2">
                     {EMOJI_OPTIONS.map((emoji) => (
                       <button
@@ -235,6 +261,92 @@ const Index = () => {
             </DialogContent>
           </Dialog>
         </div>
+
+        {/* Edit Task Dialog */}
+        <Dialog open={!!editingTask} onOpenChange={(open) => !open && closeEditDialog()}>
+          <DialogContent className="bg-card">
+            <DialogHeader>
+              <DialogTitle>{t.editTask}</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 mt-4">
+              {/* Task Name */}
+              <div>
+                <label className="text-sm text-muted-foreground mb-2 block">{t.taskName}</label>
+                <Input
+                  value={editName}
+                  onChange={(e) => setEditName(e.target.value)}
+                  placeholder={t.taskNamePlaceholder}
+                  className="bg-background"
+                />
+              </div>
+
+              {/* Task Icon */}
+              <div>
+                <label className="text-sm text-muted-foreground mb-2 block">{t.taskIcon}</label>
+                <div className="grid grid-cols-6 gap-2">
+                  {EMOJI_OPTIONS.map((emoji) => (
+                    <button
+                      key={emoji}
+                      type="button"
+                      onClick={() => setEditIcon(emoji)}
+                      className={`
+                        w-10 h-10 rounded-lg text-xl flex items-center justify-center cell-transition
+                        ${editIcon === emoji 
+                          ? "bg-primary text-primary-foreground ring-2 ring-ring" 
+                          : "bg-secondary hover:bg-secondary/80"
+                        }
+                      `}
+                    >
+                      {emoji}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Task Image */}
+              <div>
+                <label className="text-sm text-muted-foreground mb-2 block">{t.taskImage}</label>
+                <div className="flex items-center gap-3">
+                  {editImage ? (
+                    <div className="relative">
+                      <img
+                        src={editImage}
+                        alt={t.taskImage}
+                        className="h-16 w-16 rounded-lg border border-border object-cover"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setEditImage(undefined)}
+                        className="absolute -top-2 -right-2 p-1 bg-destructive text-destructive-foreground rounded-full hover:bg-destructive/90"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ) : null}
+                  <label className="flex-1 flex items-center justify-center h-16 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-primary/50 cell-transition">
+                    <span className="text-sm text-muted-foreground">
+                      {editImage ? t.removeImage : t.taskImage}
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="sr-only"
+                      onChange={handleEditImageChange}
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <Button 
+                onClick={handleSaveEdit} 
+                className="w-full"
+                disabled={!editName.trim()}
+              >
+                {t.save}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Instructions */}
         <div className="mt-12 text-center">
