@@ -62,10 +62,53 @@
             flex-wrap: wrap;
         }
 
-        .app-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--primary);
+        .nav-title-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            color: var(--foreground);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .home-btn:hover {
+            background: var(--muted);
+        }
+
+        .home-btn.active {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .lang-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            color: var(--foreground);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover {
+            background: var(--muted);
         }
 
         .task-tabs {
@@ -99,17 +142,15 @@
             color: var(--primary-foreground);
         }
 
-        .task-tab .edit-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 0.75rem;
-            opacity: 0.7;
-            transition: opacity 0.2s;
+        .task-tab .task-icon {
+            font-size: 1rem;
         }
 
-        .task-tab .edit-btn:hover {
-            opacity: 1;
+        .task-tab-img {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            object-fit: cover;
         }
 
         .add-task-btn {
@@ -128,6 +169,208 @@
         .add-task-btn:hover {
             opacity: 0.9;
             transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: linear-gradient(180deg, var(--card) 0%, transparent 100%);
+        }
+
+        .hero-title-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .hero-title-wrapper:hover {
+            opacity: 0.8;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--foreground);
+            background: linear-gradient(135deg, var(--primary), var(--foreground));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-edit-icon {
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .hero-title-wrapper:hover .hero-edit-icon {
+            opacity: 0.7;
+        }
+
+        .hero-title-input {
+            font-size: 4rem;
+            font-weight: 700;
+            background: var(--secondary);
+            border: 2px solid var(--primary);
+            border-radius: 0.5rem;
+            color: var(--foreground);
+            text-align: center;
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+            max-width: 300px;
+        }
+
+        .hero-title-input:focus {
+            outline: none;
+            border-color: var(--ring);
+        }
+
+        .hero-subtitle {
+            margin-top: 1rem;
+            font-size: 1.125rem;
+            color: var(--muted);
+        }
+
+        /* Task Cards Grid */
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .task-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .task-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .task-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .task-card-icon {
+            font-size: 2.5rem;
+        }
+
+        .task-card-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 0.75rem;
+            object-fit: cover;
+            border: 2px solid var(--border);
+        }
+
+        .task-card-info {
+            flex: 1;
+        }
+
+        .task-card-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+
+        .task-card-stats {
+            font-size: 0.875rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+
+        .task-card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .task-card-btn {
+            padding: 0.375rem;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .task-card-btn:hover {
+            background: var(--muted);
+        }
+
+        .task-card-btn.delete:hover {
+            background: var(--destructive);
+        }
+
+        .task-card-progress {
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, hsl(142, 70%, 45%), hsl(142, 70%, 55%));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--muted);
+            margin-top: 0.5rem;
+        }
+
+        .add-task-card {
+            background: transparent;
+            border: 2px dashed var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+        }
+
+        .add-task-card:hover {
+            border-color: var(--primary);
+            background: var(--card);
+        }
+
+        .add-task-card-icon {
+            font-size: 3rem;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .add-task-card-text {
+            color: var(--muted);
+            font-size: 1rem;
         }
 
         /* Main Content */
@@ -192,20 +435,6 @@
         .stat-label {
             font-size: 0.75rem;
             color: var(--muted);
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: var(--secondary);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, hsl(142, 70%, 45%), hsl(142, 70%, 55%));
-            border-radius: 4px;
-            transition: width 0.3s ease;
         }
 
         /* Colors */
@@ -575,6 +804,48 @@
             opacity: 0.9;
         }
 
+        /* Image upload */
+        .image-upload-section {
+            margin-bottom: 1rem;
+        }
+
+        .image-preview-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .image-preview {
+            width: 64px;
+            height: 64px;
+            border-radius: 0.5rem;
+            object-fit: cover;
+            border: 2px solid var(--border);
+        }
+
+        .image-upload-btn, .image-remove-btn {
+            padding: 0.5rem 1rem;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            color: var(--foreground);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .image-upload-btn:hover, .image-remove-btn:hover {
+            background: var(--muted);
+        }
+
+        .image-remove-btn {
+            background: var(--destructive);
+            color: var(--destructive-foreground);
+            border: none;
+        }
+
         /* Responsive */
         @media (max-width: 600px) {
             .nav-content {
@@ -582,8 +853,8 @@
                 align-items: stretch;
             }
 
-            .app-title {
-                text-align: center;
+            .nav-title-section {
+                justify-content: center;
             }
 
             .task-tabs {
@@ -602,6 +873,14 @@
             .grid-table th {
                 font-size: 0.65rem;
             }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-title-input {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
@@ -610,28 +889,37 @@
         <!-- Navigation -->
         <nav class="nav-bar">
             <div class="nav-content">
-                <h1 class="app-title">متابعة المهام</h1>
+                <div class="nav-title-section">
+                    <button class="home-btn" id="homeBtn">
+                        <span>🏠</span>
+                        <span id="homeText">الرئيسية</span>
+                    </button>
+                    <button class="lang-btn" id="langBtn">
+                        <span>🌐</span>
+                        <span id="langText">English</span>
+                    </button>
+                </div>
                 <div class="task-tabs" id="taskTabs"></div>
-                <button class="add-task-btn" id="addTaskBtn">+ إضافة مهمة</button>
+                <button class="add-task-btn" id="addTaskBtn">+ <span id="addTaskText">إضافة مهمة</span></button>
             </div>
         </nav>
 
         <!-- Main Content -->
         <main class="main-content" id="mainContent">
-            <!-- Task content will be rendered here -->
+            <!-- Content will be rendered here -->
         </main>
 
         <!-- Add Task Modal -->
         <div class="modal-overlay" id="addTaskModal">
             <div class="modal">
                 <div class="modal-header">
-                    <h2>إضافة مهمة جديدة</h2>
+                    <h2 id="addModalTitle">إضافة مهمة جديدة</h2>
                     <button class="close-btn" id="closeAddModal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <label>اسم المهمة</label>
-                    <input type="text" id="taskNameInput" placeholder="أدخل اسم المهمة">
-                    <label>أيقونة المهمة</label>
+                    <label id="taskNameLabel">اسم المهمة</label>
+                    <input type="text" id="taskNameInput" placeholder="">
+                    <label id="taskIconLabel">أيقونة المهمة</label>
                     <div class="emoji-picker" id="emojiPicker"></div>
                 </div>
                 <div class="modal-footer">
@@ -645,14 +933,23 @@
         <div class="modal-overlay" id="editTaskModal">
             <div class="modal">
                 <div class="modal-header">
-                    <h2>تعديل المهمة</h2>
+                    <h2 id="editModalTitle">تعديل المهمة</h2>
                     <button class="close-btn" id="closeEditModal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <label>اسم المهمة</label>
+                    <label id="editTaskNameLabel">اسم المهمة</label>
                     <input type="text" id="editTaskNameInput">
-                    <label>أيقونة المهمة</label>
+                    <label id="editTaskIconLabel">أيقونة المهمة</label>
                     <div class="emoji-picker" id="editEmojiPicker"></div>
+                    <div class="image-upload-section">
+                        <label id="editTaskImageLabel">صورة المهمة (اختياري)</label>
+                        <div class="image-preview-container">
+                            <img id="editImagePreview" class="image-preview" src="" style="display: none;">
+                            <input type="file" id="editImageInput" accept="image/*" style="display: none;">
+                            <button class="image-upload-btn" id="editImageUploadBtn">📷 <span id="uploadImageText">رفع صورة</span></button>
+                            <button class="image-remove-btn" id="editImageRemoveBtn" style="display: none;">🗑️ <span id="removeImageText">حذف</span></button>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn-danger" id="deleteTask">حذف المهمة</button>
@@ -665,42 +962,113 @@
     <script>
         // =============== JAVASCRIPT ===============
         
-        // Data Storage
+        // Storage Keys
         const STORAGE_KEY = 'taskTrackerData';
+        const LANG_KEY = 'taskTrackerLang';
+        const TITLE_KEY = 'taskTrackerTitle';
+
+        // Translations
+        const translations = {
+            ar: {
+                home: 'الرئيسية',
+                addTask: 'إضافة مهمة',
+                addNewTask: 'إضافة مهمة جديدة',
+                taskName: 'اسم المهمة',
+                taskIcon: 'أيقونة المهمة',
+                taskImage: 'صورة المهمة (اختياري)',
+                uploadImage: 'رفع صورة',
+                removeImage: 'حذف',
+                cancel: 'إلغاء',
+                add: 'إضافة',
+                save: 'حفظ',
+                editTask: 'تعديل المهمة',
+                deleteTask: 'حذف المهمة',
+                deleteConfirm: 'هل أنت متأكد من حذف هذه المهمة؟',
+                noTasks: 'لا توجد مهام',
+                noTasksDesc: 'أضف مهمة جديدة للبدء في متابعة تقدمك',
+                statistics: 'الإحصائيات',
+                completedDays: 'أيام مكتملة',
+                totalDays: 'إجمالي الأيام',
+                completionRate: 'نسبة الإنجاز',
+                colors: 'الألوان',
+                newColorName: 'اسم اللون الجديد',
+                addColor: 'إضافة لون',
+                done: 'منجز',
+                partial: 'جزئي',
+                missed: 'فائت',
+                enterTaskName: 'أدخل اسم المهمة',
+                subtitle: 'تتبع عاداتك اليومية وحقق أهدافك',
+                day: 'اليوم',
+                months: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+                langSwitch: 'English'
+            },
+            en: {
+                home: 'Home',
+                addTask: 'Add Task',
+                addNewTask: 'Add New Task',
+                taskName: 'Task Name',
+                taskIcon: 'Task Icon',
+                taskImage: 'Task Image (optional)',
+                uploadImage: 'Upload Image',
+                removeImage: 'Remove',
+                cancel: 'Cancel',
+                add: 'Add',
+                save: 'Save',
+                editTask: 'Edit Task',
+                deleteTask: 'Delete Task',
+                deleteConfirm: 'Are you sure you want to delete this task?',
+                noTasks: 'No Tasks',
+                noTasksDesc: 'Add a new task to start tracking your progress',
+                statistics: 'Statistics',
+                completedDays: 'Completed Days',
+                totalDays: 'Total Days',
+                completionRate: 'Completion Rate',
+                colors: 'Colors',
+                newColorName: 'New color name',
+                addColor: 'Add Color',
+                done: 'Done',
+                partial: 'Partial',
+                missed: 'Missed',
+                enterTaskName: 'Enter task name',
+                subtitle: 'Track your daily habits and achieve your goals',
+                day: 'Day',
+                months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                langSwitch: 'عربي'
+            }
+        };
 
         // Default Tasks
-        const defaultTasks = [
-            {
-                id: 'task-1',
-                name: 'التمارين',
-                icon: '💪',
-                colors: [
-                    { id: 'done', name: 'منجز', hue: 142 },
-                    { id: 'partial', name: 'جزئي', hue: 38 },
-                    { id: 'missed', name: 'فائت', hue: 0 }
-                ],
-                gridData: {},
-                createdAt: Date.now()
-            },
-            {
-                id: 'task-2',
-                name: 'الدراسة لمدة ٣٠ دقيقة',
-                icon: '📚',
-                colors: [
-                    { id: 'done', name: 'منجز', hue: 142 },
-                    { id: 'partial', name: 'جزئي', hue: 38 },
-                    { id: 'missed', name: 'فائت', hue: 0 }
-                ],
-                gridData: {},
-                createdAt: Date.now()
-            }
-        ];
+        function getDefaultTasks(lang) {
+            return [
+                {
+                    id: 'task-1',
+                    name: lang === 'ar' ? 'التمارين' : 'Exercise',
+                    icon: '💪',
+                    colors: [
+                        { id: 'done', name: lang === 'ar' ? 'منجز' : 'Done', hue: 142 },
+                        { id: 'partial', name: lang === 'ar' ? 'جزئي' : 'Partial', hue: 38 },
+                        { id: 'missed', name: lang === 'ar' ? 'فائت' : 'Missed', hue: 0 }
+                    ],
+                    gridData: {},
+                    createdAt: Date.now()
+                },
+                {
+                    id: 'task-2',
+                    name: lang === 'ar' ? 'الدراسة لمدة ٣٠ دقيقة' : 'Study for 30 minutes',
+                    icon: '📚',
+                    colors: [
+                        { id: 'done', name: lang === 'ar' ? 'منجز' : 'Done', hue: 142 },
+                        { id: 'partial', name: lang === 'ar' ? 'جزئي' : 'Partial', hue: 38 },
+                        { id: 'missed', name: lang === 'ar' ? 'فائت' : 'Missed', hue: 0 }
+                    ],
+                    gridData: {},
+                    createdAt: Date.now()
+                }
+            ];
+        }
 
         // Emoji options
         const emojis = ['💪', '📚', '🏃', '🎯', '💼', '🎨', '🎵', '🧘', '💊', '🥗', '💧', '😴', '🚭', '💰', '📝', '🌱'];
-
-        // Month names in Arabic
-        const monthNames = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
 
         // State
         let tasks = [];
@@ -709,6 +1077,10 @@
         let newColorHue = 200;
         let selectedEmoji = '💪';
         let editingTaskId = null;
+        let editingImage = null;
+        let currentPage = 'home'; // 'home' or 'task'
+        let language = 'ar';
+        let mainTitle = '2026';
 
         // DOM Elements
         const taskTabsEl = document.getElementById('taskTabs');
@@ -716,6 +1088,8 @@
         const addTaskModal = document.getElementById('addTaskModal');
         const editTaskModal = document.getElementById('editTaskModal');
         const addTaskBtn = document.getElementById('addTaskBtn');
+        const homeBtn = document.getElementById('homeBtn');
+        const langBtn = document.getElementById('langBtn');
         const closeAddModal = document.getElementById('closeAddModal');
         const closeEditModal = document.getElementById('closeEditModal');
         const cancelAddTask = document.getElementById('cancelAddTask');
@@ -726,6 +1100,10 @@
         const editTaskNameInput = document.getElementById('editTaskNameInput');
         const emojiPicker = document.getElementById('emojiPicker');
         const editEmojiPicker = document.getElementById('editEmojiPicker');
+        const editImageInput = document.getElementById('editImageInput');
+        const editImagePreview = document.getElementById('editImagePreview');
+        const editImageUploadBtn = document.getElementById('editImageUploadBtn');
+        const editImageRemoveBtn = document.getElementById('editImageRemoveBtn');
 
         // Initialize
         function init() {
@@ -733,22 +1111,36 @@
             renderEmojiPicker(emojiPicker, (emoji) => { selectedEmoji = emoji; });
             renderEmojiPicker(editEmojiPicker, (emoji) => { selectedEmoji = emoji; });
             setupEventListeners();
+            updateLanguageUI();
             render();
         }
 
         // Load data from localStorage
         function loadData() {
+            // Load language
+            const savedLang = localStorage.getItem(LANG_KEY);
+            if (savedLang) {
+                language = savedLang;
+            }
+
+            // Load title
+            const savedTitle = localStorage.getItem(TITLE_KEY);
+            if (savedTitle) {
+                mainTitle = savedTitle;
+            }
+
+            // Load tasks
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) {
                 tasks = JSON.parse(saved);
             } else {
-                tasks = defaultTasks;
+                tasks = getDefaultTasks(language);
                 saveData();
             }
-            if (tasks.length > 0) {
-                activeTaskId = tasks[0].id;
-                selectedColorId = tasks[0].colors[0]?.id || null;
-            }
+
+            // Set document direction
+            document.documentElement.lang = language;
+            document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
         }
 
         // Save data to localStorage
@@ -756,8 +1148,58 @@
             localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
         }
 
+        function saveLang() {
+            localStorage.setItem(LANG_KEY, language);
+        }
+
+        function saveTitle() {
+            localStorage.setItem(TITLE_KEY, mainTitle);
+        }
+
+        // Get translation
+        function t(key) {
+            return translations[language][key] || key;
+        }
+
+        // Update language UI
+        function updateLanguageUI() {
+            document.documentElement.lang = language;
+            document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+
+            document.getElementById('homeText').textContent = t('home');
+            document.getElementById('langText').textContent = t('langSwitch');
+            document.getElementById('addTaskText').textContent = t('addTask');
+            document.getElementById('addModalTitle').textContent = t('addNewTask');
+            document.getElementById('taskNameLabel').textContent = t('taskName');
+            document.getElementById('taskIconLabel').textContent = t('taskIcon');
+            document.getElementById('editModalTitle').textContent = t('editTask');
+            document.getElementById('editTaskNameLabel').textContent = t('taskName');
+            document.getElementById('editTaskIconLabel').textContent = t('taskIcon');
+            document.getElementById('editTaskImageLabel').textContent = t('taskImage');
+            document.getElementById('uploadImageText').textContent = t('uploadImage');
+            document.getElementById('removeImageText').textContent = t('removeImage');
+            document.getElementById('cancelAddTask').textContent = t('cancel');
+            document.getElementById('confirmAddTask').textContent = t('add');
+            document.getElementById('confirmEditTask').textContent = t('save');
+            document.getElementById('deleteTask').textContent = t('deleteTask');
+            taskNameInput.placeholder = t('enterTaskName');
+        }
+
         // Setup event listeners
         function setupEventListeners() {
+            homeBtn.addEventListener('click', () => {
+                currentPage = 'home';
+                activeTaskId = null;
+                render();
+            });
+
+            langBtn.addEventListener('click', () => {
+                language = language === 'ar' ? 'en' : 'ar';
+                saveLang();
+                updateLanguageUI();
+                render();
+            });
+
             addTaskBtn.addEventListener('click', () => {
                 taskNameInput.value = '';
                 selectedEmoji = '💪';
@@ -780,16 +1222,43 @@
             confirmEditTask.addEventListener('click', () => {
                 const name = editTaskNameInput.value.trim();
                 if (name && editingTaskId) {
-                    updateTask(editingTaskId, name, selectedEmoji);
+                    updateTask(editingTaskId, name, selectedEmoji, editingImage);
                     editTaskModal.classList.remove('show');
                 }
             });
 
             deleteTaskBtn.addEventListener('click', () => {
-                if (editingTaskId && confirm('هل أنت متأكد من حذف هذه المهمة؟')) {
+                if (editingTaskId && confirm(t('deleteConfirm'))) {
                     deleteTask(editingTaskId);
                     editTaskModal.classList.remove('show');
                 }
+            });
+
+            // Image upload
+            editImageUploadBtn.addEventListener('click', () => {
+                editImageInput.click();
+            });
+
+            editImageInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        editingImage = event.target.result;
+                        editImagePreview.src = editingImage;
+                        editImagePreview.style.display = 'block';
+                        editImageRemoveBtn.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            editImageRemoveBtn.addEventListener('click', () => {
+                editingImage = null;
+                editImagePreview.src = '';
+                editImagePreview.style.display = 'none';
+                editImageRemoveBtn.style.display = 'none';
+                editImageInput.value = '';
             });
 
             // Close modals on overlay click
@@ -825,26 +1294,28 @@
                 name,
                 icon,
                 colors: [
-                    { id: 'done', name: 'منجز', hue: 142 },
-                    { id: 'partial', name: 'جزئي', hue: 38 },
-                    { id: 'missed', name: 'فائت', hue: 0 }
+                    { id: 'done', name: t('done'), hue: 142 },
+                    { id: 'partial', name: t('partial'), hue: 38 },
+                    { id: 'missed', name: t('missed'), hue: 0 }
                 ],
                 gridData: {},
                 createdAt: Date.now()
             };
             tasks.push(newTask);
             activeTaskId = newTask.id;
+            currentPage = 'task';
             selectedColorId = newTask.colors[0].id;
             saveData();
             render();
         }
 
         // Update task
-        function updateTask(taskId, name, icon) {
+        function updateTask(taskId, name, icon, image) {
             const task = tasks.find(t => t.id === taskId);
             if (task) {
                 task.name = name;
                 task.icon = icon;
+                task.image = image || undefined;
                 saveData();
                 render();
             }
@@ -854,7 +1325,8 @@
         function deleteTask(taskId) {
             tasks = tasks.filter(t => t.id !== taskId);
             if (activeTaskId === taskId) {
-                activeTaskId = tasks.length > 0 ? tasks[0].id : null;
+                activeTaskId = null;
+                currentPage = 'home';
             }
             saveData();
             render();
@@ -867,6 +1339,18 @@
                 editingTaskId = taskId;
                 editTaskNameInput.value = task.name;
                 selectedEmoji = task.icon;
+                editingImage = task.image || null;
+                
+                if (editingImage) {
+                    editImagePreview.src = editingImage;
+                    editImagePreview.style.display = 'block';
+                    editImageRemoveBtn.style.display = 'block';
+                } else {
+                    editImagePreview.src = '';
+                    editImagePreview.style.display = 'none';
+                    editImageRemoveBtn.style.display = 'none';
+                }
+                
                 renderEmojiPicker(editEmojiPicker, (emoji) => { selectedEmoji = emoji; });
                 editTaskModal.classList.add('show');
             }
@@ -956,49 +1440,183 @@
 
         // Render tabs
         function renderTabs() {
+            // Update home button active state
+            homeBtn.classList.toggle('active', currentPage === 'home');
+
             taskTabsEl.innerHTML = tasks.map(task => `
-                <button class="task-tab ${task.id === activeTaskId ? 'active' : ''}" data-task-id="${task.id}">
-                    <span>${task.icon}</span>
+                <button class="task-tab ${task.id === activeTaskId && currentPage === 'task' ? 'active' : ''}" data-task-id="${task.id}">
+                    ${task.image 
+                        ? `<img src="${task.image}" alt="${task.name}" class="task-tab-img">`
+                        : `<span class="task-icon">${task.icon}</span>`
+                    }
                     <span>${task.name}</span>
-                    <button class="edit-btn" data-edit-id="${task.id}">✏️</button>
                 </button>
             `).join('');
 
             taskTabsEl.querySelectorAll('.task-tab').forEach(tab => {
-                tab.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('edit-btn')) {
-                        activeTaskId = tab.dataset.taskId;
-                        const task = tasks.find(t => t.id === activeTaskId);
-                        if (task && task.colors.length > 0) {
-                            selectedColorId = task.colors[0].id;
-                        }
-                        render();
+                tab.addEventListener('click', () => {
+                    activeTaskId = tab.dataset.taskId;
+                    currentPage = 'task';
+                    const task = tasks.find(t => t.id === activeTaskId);
+                    if (task && task.colors.length > 0) {
+                        selectedColorId = task.colors[0].id;
                     }
-                });
-            });
-
-            taskTabsEl.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openEditModal(btn.dataset.editId);
+                    render();
                 });
             });
         }
 
         // Render main content
         function renderMainContent() {
+            if (currentPage === 'home') {
+                renderHomePage();
+            } else {
+                renderTaskPage();
+            }
+        }
+
+        // Render home page
+        function renderHomePage() {
+            mainContentEl.innerHTML = `
+                <div class="hero-section">
+                    <div class="hero-title-wrapper" id="heroTitleWrapper">
+                        <h1 class="hero-title" id="heroTitle">${mainTitle}</h1>
+                        <span class="hero-edit-icon">✏️</span>
+                    </div>
+                    <p class="hero-subtitle">${t('subtitle')}</p>
+                </div>
+                <div class="tasks-grid">
+                    ${tasks.map(task => {
+                        const stats = calculateStats(task);
+                        return `
+                            <div class="task-card" data-task-id="${task.id}">
+                                <div class="task-card-header">
+                                    ${task.image 
+                                        ? `<img src="${task.image}" alt="${task.name}" class="task-card-img">`
+                                        : `<span class="task-card-icon">${task.icon}</span>`
+                                    }
+                                    <div class="task-card-info">
+                                        <div class="task-card-name">${task.name}</div>
+                                        <div class="task-card-stats">${stats.filledDays} / ${stats.totalDays} ${t('completedDays')}</div>
+                                    </div>
+                                    <div class="task-card-actions">
+                                        <button class="task-card-btn edit" data-edit-id="${task.id}">✏️</button>
+                                        <button class="task-card-btn delete" data-delete-id="${task.id}">🗑️</button>
+                                    </div>
+                                </div>
+                                <div class="task-card-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: ${stats.percentage}%"></div>
+                                    </div>
+                                    <div class="progress-text">${stats.percentage}% ${t('completionRate')}</div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                    <div class="add-task-card" id="addTaskCard">
+                        <div class="add-task-card-icon">+</div>
+                        <div class="add-task-card-text">${t('addNewTask')}</div>
+                    </div>
+                </div>
+            `;
+
+            // Hero title edit
+            const heroTitleWrapper = document.getElementById('heroTitleWrapper');
+            const heroTitle = document.getElementById('heroTitle');
+            let isEditingTitle = false;
+
+            heroTitleWrapper.addEventListener('click', () => {
+                if (isEditingTitle) return;
+                isEditingTitle = true;
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = mainTitle;
+                input.className = 'hero-title-input';
+                
+                heroTitleWrapper.innerHTML = '';
+                heroTitleWrapper.appendChild(input);
+                input.focus();
+                input.select();
+
+                const saveTitle = () => {
+                    const newTitle = input.value.trim() || mainTitle;
+                    mainTitle = newTitle;
+                    localStorage.setItem(TITLE_KEY, mainTitle);
+                    isEditingTitle = false;
+                    render();
+                };
+
+                input.addEventListener('blur', saveTitle);
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        saveTitle();
+                    } else if (e.key === 'Escape') {
+                        isEditingTitle = false;
+                        render();
+                    }
+                });
+            });
+
+            // Task card clicks
+            mainContentEl.querySelectorAll('.task-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.task-card-btn')) return;
+                    activeTaskId = card.dataset.taskId;
+                    currentPage = 'task';
+                    const task = tasks.find(t => t.id === activeTaskId);
+                    if (task && task.colors.length > 0) {
+                        selectedColorId = task.colors[0].id;
+                    }
+                    render();
+                });
+            });
+
+            // Edit buttons
+            mainContentEl.querySelectorAll('.task-card-btn.edit').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openEditModal(btn.dataset.editId);
+                });
+            });
+
+            // Delete buttons
+            mainContentEl.querySelectorAll('.task-card-btn.delete').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (confirm(t('deleteConfirm'))) {
+                        deleteTask(btn.dataset.deleteId);
+                    }
+                });
+            });
+
+            // Add task card
+            document.getElementById('addTaskCard').addEventListener('click', () => {
+                taskNameInput.value = '';
+                selectedEmoji = '💪';
+                renderEmojiPicker(emojiPicker, (emoji) => { selectedEmoji = emoji; });
+                addTaskModal.classList.add('show');
+            });
+        }
+
+        // Render task page
+        function renderTaskPage() {
             if (!activeTaskId || tasks.length === 0) {
                 mainContentEl.innerHTML = `
                     <div class="empty-state">
-                        <h2>لا توجد مهام</h2>
-                        <p>أضف مهمة جديدة للبدء في متابعة تقدمك</p>
+                        <h2>${t('noTasks')}</h2>
+                        <p>${t('noTasksDesc')}</p>
                     </div>
                 `;
                 return;
             }
 
             const task = tasks.find(t => t.id === activeTaskId);
-            if (!task) return;
+            if (!task) {
+                currentPage = 'home';
+                render();
+                return;
+            }
 
             const stats = calculateStats(task);
 
@@ -1007,15 +1625,15 @@
                     <aside class="sidebar">
                         <!-- Stats -->
                         <div class="stats-card">
-                            <h3>الإحصائيات</h3>
+                            <h3>${t('statistics')}</h3>
                             <div class="stats-grid">
                                 <div class="stat-item">
                                     <div class="stat-value">${stats.filledDays}</div>
-                                    <div class="stat-label">أيام مكتملة</div>
+                                    <div class="stat-label">${t('completedDays')}</div>
                                 </div>
                                 <div class="stat-item">
                                     <div class="stat-value">${stats.totalDays}</div>
-                                    <div class="stat-label">إجمالي الأيام</div>
+                                    <div class="stat-label">${t('totalDays')}</div>
                                 </div>
                             </div>
                             <div class="progress-bar">
@@ -1023,13 +1641,13 @@
                             </div>
                             <div class="stat-item" style="margin-top: 0.5rem;">
                                 <div class="stat-value">${stats.percentage}%</div>
-                                <div class="stat-label">نسبة الإنجاز</div>
+                                <div class="stat-label">${t('completionRate')}</div>
                             </div>
                         </div>
 
                         <!-- Color Palette -->
                         <div class="color-palette">
-                            <h3>الألوان</h3>
+                            <h3>${t('colors')}</h3>
                             <div class="colors-list">
                                 ${task.colors.map(color => `
                                     <div class="color-item ${color.id === selectedColorId ? 'selected' : ''}" data-color-id="${color.id}">
@@ -1040,12 +1658,12 @@
                                 `).join('')}
                             </div>
                             <div class="add-color-form">
-                                <input type="text" id="newColorName" placeholder="اسم اللون الجديد">
+                                <input type="text" id="newColorName" placeholder="${t('newColorName')}">
                                 <div class="color-preview-row">
                                     <div class="color-preview" id="colorPreview" style="background: hsl(${newColorHue}, 70%, 50%)"></div>
                                     <input type="range" id="colorHueSlider" min="0" max="360" value="${newColorHue}">
                                 </div>
-                                <button class="add-color-btn" id="addColorBtn">إضافة لون</button>
+                                <button class="add-color-btn" id="addColorBtn">${t('addColor')}</button>
                             </div>
                         </div>
                     </aside>
@@ -1112,11 +1730,12 @@
         function renderYearGrid(task) {
             const year = new Date().getFullYear();
             const today = new Date();
+            const months = t('months');
 
-            let html = '<table class="grid-table"><thead><tr><th>اليوم</th>';
+            let html = `<table class="grid-table"><thead><tr><th>${t('day')}</th>`;
             
             // Month headers
-            monthNames.forEach(month => {
+            months.forEach(month => {
                 html += `<th>${month}</th>`;
             });
             html += '</tr></thead><tbody>';
